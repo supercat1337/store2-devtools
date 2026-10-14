@@ -49,9 +49,11 @@
         "registry": "https://registry.npmjs.org"
     },
     "files": [
-        "dist/",
+        "dist/store2-devtools.esm.js",
+        "dist/store2-devtools.esm.bundle.js",
+        "dist/types.d.ts",
         "README.md",
-        "LICENSE"
+        "LICENSE.txt"
     ],
     "ava": {
         "files": [
