@@ -1,0 +1,67 @@
+{
+    "name": "@supercat1337/store2-devtools",
+    "version": "1.0.0",
+    "description": "DevTools plugin and Redux DevTools Extension bridge for @supercat1337/store2.",
+    "author": "Albert Bazaleev",
+    "license": "MIT",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/types.d.ts",
+            "import": "./dist/store2-devtools.esm.js"
+        }
+    },
+    "types": "dist/types.d.ts",
+    "scripts": {
+        "test": "c8 ava",
+        "clean": "shx rm -rf ./dist && shx mkdir ./dist",
+        "build_esm": "rollup ./src/index.js --file ./dist/store2-devtools.esm.js --format es",
+        "build_esm_bundle": "esbuild ./src/index.js --format=esm --bundle --platform=neutral --external:@supercat1337/store2 --outfile=./dist/store2-devtools.esm.bundle.js",
+        "gen_types": "npx tsc --project my.tsconfig.types.json && shx cp src/index.d.ts dist/types-temp/src/index.d.ts",
+        "bundle_types": "api-extractor run --local",
+        "build": "npm run clean && npm run build_esm && npm run build_esm_bundle && npm run gen_types && npm run bundle_types && shx rm -rf dist/types-temp",
+        "lint": "eslint src/ tests/"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.18.0",
+        "eslint": "^9.18.0",
+        "eslint-plugin-eqeqeq-fix": "^1.0.3",
+        "eslint-plugin-jsdoc": "^63.0.2",
+        "@microsoft/api-extractor": "^7.59.4",
+        "@supercat1337/store2": "^3.0.1",
+        "ava": "^8.0.1",
+        "c8": "^9.1.0",
+        "esbuild": "^0.24.0",
+        "rollup": "^4.60.1",
+        "shx": "^0.4.0"
+    },
+    "peerDependencies": {
+        "@supercat1337/store2": "^3.0.1"
+    },
+    "keywords": [
+        "store2",
+        "devtools",
+        "redux-devtools",
+        "time-travel",
+        "debugging"
+    ],
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "files": [
+        "dist/",
+        "README.md",
+        "LICENSE"
+    ],
+    "ava": {
+        "files": [
+            "tests/**/*.test.js"
+        ],
+        "nodeArguments": [
+            "--experimental-vm-modules"
+        ],
+        "extensions": [
+            "js"
+        ]
+    }
+}
